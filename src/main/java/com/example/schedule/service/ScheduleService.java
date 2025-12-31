@@ -70,4 +70,13 @@ public class ScheduleService {
                 schedule.getContent()
         );
     }
+
+    @Transactional
+    public void delete(Long scheduleId) {
+        boolean existence = scheduleRepository.existsById(scheduleId);
+        if (!existence) {
+            throw new IllegalStateException("없음");
+        }
+        scheduleRepository.deleteById(scheduleId);
+    }
 }

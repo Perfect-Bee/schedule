@@ -43,4 +43,10 @@ public class ScheduleController {
         return ResponseEntity.status(HttpStatus.OK).body(scheduleService.update(scheduleId, request));
     }
     //Delete
+    @DeleteMapping("/schedule/{scheduleId}")
+    public void  delete(
+            @PathVariable Long scheduleId
+    ){
+        scheduleService.delete(scheduleId);
+    }
 }
