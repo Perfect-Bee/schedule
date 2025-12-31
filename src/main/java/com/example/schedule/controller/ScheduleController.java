@@ -1,6 +1,7 @@
 package com.example.schedule.controller;
 
 import com.example.schedule.dto.*;
+import com.example.schedule.dto.*;
 import com.example.schedule.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,7 @@ import java.util.List;
 public class ScheduleController {
     private final ScheduleService scheduleService;
 
-    @PostMapping("/schedule")
+    @PostMapping("/schedules")
     public ResponseEntity<ScheduleCreateResponse> create(
             @RequestBody ScheduleCreateRequest request
     ){
@@ -23,11 +24,11 @@ public class ScheduleController {
     }
 
     //Get전체/단건
-    @GetMapping("/schedule")
+    @GetMapping("/schedules")
     public ResponseEntity<List<ScheduleGetResponse>> getAll(){
         return ResponseEntity.status(HttpStatus.OK).body(scheduleService.findAll());
     }
-    @GetMapping("/schedule/{scheduleId}")
+    @GetMapping("/schedules/{scheduleId}")
     public ResponseEntity<ScheduleGetResponse> getOne(
             @PathVariable Long scheduleId
     ){
@@ -35,7 +36,7 @@ public class ScheduleController {
     }
 
     //Put
-    @PutMapping("/schedule/{scheduleId}")
+    @PutMapping("/schedules/{scheduleId}")
     public ResponseEntity<ScheduleUpdateResponse> update(
             @PathVariable Long scheduleId,
             @RequestBody ScheduleUpdateRequest request
@@ -43,7 +44,7 @@ public class ScheduleController {
         return ResponseEntity.status(HttpStatus.OK).body(scheduleService.update(scheduleId, request));
     }
     //Delete
-    @DeleteMapping("/schedule/{scheduleId}")
+    @DeleteMapping("/schedules/{scheduleId}")
     public void  delete(
             @PathVariable Long scheduleId
     ){

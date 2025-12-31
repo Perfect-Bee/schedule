@@ -4,7 +4,6 @@ import com.example.schedule.dto.*;
 import com.example.schedule.entity.Schedule;
 import com.example.schedule.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
-import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -75,7 +74,7 @@ public class ScheduleService {
     public void delete(Long scheduleId) {
         boolean existence = scheduleRepository.existsById(scheduleId);
         if (!existence) {
-            throw new IllegalStateException("없음");
+            throw new IllegalStateException("일정 없음");
         }
         scheduleRepository.deleteById(scheduleId);
     }
