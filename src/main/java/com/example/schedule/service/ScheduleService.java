@@ -2,11 +2,16 @@ package com.example.schedule.service;
 
 import com.example.schedule.dto.ScheduleCreateRequest;
 import com.example.schedule.dto.ScheduleCreateResponse;
+import com.example.schedule.dto.ScheduleGetResponse;
 import com.example.schedule.entity.Schedule;
 import com.example.schedule.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +30,33 @@ public class ScheduleService {
                 savedSchedule.getId(),
                 savedSchedule.getTitle(),
                 savedSchedule.getContent()
+        );
+    }
+
+    @Transactional(readOnly = true)
+    public List<ScheduleGetResponse> findAll() {
+        List<Schedule> schedules = scheduleRepository.findAll();
+        List<ScheduleGetResponse> dtos =  new ArrayList<>();
+        for  (Schedule schedule : schedules) {
+            ScheduleGetResponse dto = new ScheduleGetResponse(
+                    schedule.getId(),
+                    schedule.getTitle(),
+                    schedule.getContent()
+            );
+            dtos.add(dto);
+        }
+        return dtos;
+    }
+
+    @Transactional(readOnly = true)
+    public ScheduleGetResponse findOne(Long scheduleId) {
+        Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(
+                () -> new IllegalStateException("없음")
+        );
+        return new  ScheduleGetResponse(
+                schedule.getId(),
+                schedule.getTitle(),
+                schedule.getContent()
         );
     }
 }
